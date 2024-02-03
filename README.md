@@ -6,3 +6,4 @@ install pyaudio inside venv
 soundfile library wheel error:
 https://github.com/bastibe/python-soundfile/issues/380
 
+https://community.openai.com/t/streaming-from-text-to-speech-api/493784/15
