@@ -1,0 +1,29 @@
+#main terminal
+docker run -it -p 4000:4000 --rm -v $(pwd):/app elixir:1.16.1 /bin/bash
+
+mix local.hex
+mix archive.install hex phx_new
+mix phx.new tutor_app
+
+
+#second terminal
+docker run --name pg -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
+docker run -p 5555:80 --name pgadmin -e PGADMIN_DEFAULT_EMAIL="afr102903@gmail.com" -e PGADMIN_DEFAULT_PASSWORD="postgres" dpage/pgadmin4
+change hostname config/dev.exs
+
+#back to main terminal
+cd tutor_app
+mix ecto.create
+mix phx.server
+
+
+# when run pg
+docker start pg
+docker start pgadmin
+
+docker exec -d pg
+docker exec -d pgadmin
+
+
+# Audio
+Tutorial speech-to-text: https://www.phoenixframework.org/blog/whisper-speech-to-text-phoenix
